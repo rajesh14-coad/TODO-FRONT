@@ -1,0 +1,344 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#F9FAFB] dark:bg-[#0F1419] text-slate-900 dark:text-slate-100;
+    @apply font-sans antialiased;
+    @apply transition-colors duration-300;
+  }
+}
+
+@layer components {
+
+  /* Glassmorphism Card Styles */
+  .glass-card {
+    @apply bg-white/60 dark:bg-slate-900/60;
+    @apply backdrop-blur-2xl;
+    @apply border border-white/20 dark:border-slate-700/30;
+    @apply rounded-2xl shadow-glass;
+    @apply transition-all duration-300;
+  }
+
+  .glass-card:hover {
+    @apply bg-white/70 dark:bg-slate-900/70;
+    @apply shadow-glass-lg;
+    @apply border-white/30 dark:border-slate-600/40;
+    transform: translateY(-2px);
+  }
+
+  .glass-modal {
+    @apply bg-white/80 dark:bg-slate-800/80;
+    @apply backdrop-blur-3xl;
+    @apply border border-white/30 dark:border-slate-700/40;
+    @apply rounded-3xl shadow-glass-xl;
+  }
+
+  .glass-panel {
+    @apply bg-white/60 dark:bg-slate-900/60;
+    @apply backdrop-blur-lg;
+    @apply border border-white/20 dark:border-slate-700/30;
+    @apply rounded-xl;
+  }
+
+  /* Premium Button Styles */
+  .btn {
+    @apply px-5 py-2.5 rounded-2xl font-medium;
+    @apply transition-all duration-300;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+    @apply shadow-premium hover:shadow-premium-lg;
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-r from-primary-600 to-primary-700;
+    @apply hover:from-primary-700 hover:to-primary-800;
+    @apply text-white;
+    @apply focus:ring-primary-500;
+    @apply transform hover:scale-[1.02] active:scale-[0.98];
+  }
+
+  .btn-secondary {
+    @apply bg-white/80 dark:bg-slate-800/80;
+    @apply backdrop-blur-md;
+    @apply hover:bg-white dark:hover:bg-slate-800;
+    @apply text-slate-900 dark:text-slate-100;
+    @apply border border-slate-200/50 dark:border-slate-700/50;
+    @apply focus:ring-slate-500;
+  }
+
+  .btn-ghost {
+    @apply bg-transparent hover:bg-slate-100/50 dark:hover:bg-slate-800/50;
+    @apply text-slate-700 dark:text-slate-300;
+    @apply shadow-none;
+  }
+
+  /* Premium Input Styles */
+  .input {
+    @apply w-full px-4 py-3 rounded-xl;
+    @apply bg-white/80 dark:bg-slate-900/80;
+    @apply backdrop-blur-md;
+    @apply border border-slate-200/50 dark:border-slate-700/50;
+    @apply text-slate-900 dark:text-slate-100;
+    @apply placeholder:text-slate-400 dark:placeholder:text-slate-500;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500;
+    @apply transition-all duration-300;
+    @apply shadow-sm hover:shadow-md;
+  }
+
+  .input:focus {
+    @apply bg-white dark:bg-slate-900;
+  }
+
+  /* Floating Label Input */
+  .input-floating {
+    @apply input pt-6 pb-2;
+  }
+
+  /* Icon Button with Low Opacity Background */
+  .icon-btn {
+    @apply p-2.5 rounded-xl;
+    @apply bg-slate-100/50 dark:bg-slate-800/50;
+    @apply hover:bg-slate-200/70 dark:hover:bg-slate-700/70;
+    @apply text-slate-600 dark:text-slate-400;
+    @apply hover:text-slate-900 dark:hover:text-slate-100;
+    @apply transition-all duration-200;
+    @apply backdrop-blur-sm;
+  }
+
+  .icon-btn-active {
+    @apply bg-primary-100/70 dark:bg-primary-900/30;
+    @apply text-primary-700 dark:text-primary-300;
+    @apply hover:bg-primary-200/70 dark:hover:bg-primary-800/40;
+  }
+
+  /* Floating Circular Button */
+  .floating-btn {
+    @apply w-12 h-12 rounded-full;
+    @apply bg-white/90 dark:bg-slate-900/90;
+    @apply backdrop-blur-md;
+    @apply border border-slate-200/50 dark:border-slate-700/50;
+    @apply shadow-premium hover:shadow-premium-lg;
+    @apply flex items-center justify-center;
+    @apply text-slate-700 dark:text-slate-300;
+    @apply hover:text-slate-900 dark:hover:text-slate-100;
+    @apply transition-all duration-300;
+    @apply hover:scale-110 active:scale-95;
+  }
+
+  /* Badge Styles */
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium;
+    @apply backdrop-blur-sm;
+  }
+
+  .badge-primary {
+    @apply bg-primary-100/70 text-primary-800 dark:bg-primary-900/30 dark:text-primary-300;
+    @apply border border-primary-200/50 dark:border-primary-800/50;
+  }
+
+  .badge-success {
+    @apply bg-green-100/70 text-green-800 dark:bg-green-900/30 dark:text-green-300;
+    @apply border border-green-200/50 dark:border-green-800/50;
+  }
+
+  .badge-warning {
+    @apply bg-amber-100/70 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300;
+    @apply border border-amber-200/50 dark:border-amber-800/50;
+  }
+
+  .badge-danger {
+    @apply bg-red-100/70 text-red-800 dark:bg-red-900/30 dark:text-red-300;
+    @apply border border-red-200/50 dark:border-red-800/50;
+  }
+
+  /* Stat Card */
+  .stat-card {
+    @apply glass-card p-6;
+    @apply hover:scale-[1.02];
+    @apply cursor-pointer;
+  }
+
+  /* Sidebar Styles */
+  .sidebar {
+    @apply fixed left-0 top-0 bottom-0;
+    @apply bg-white/80 dark:bg-slate-900/80;
+    @apply backdrop-blur-2xl;
+    @apply border-r border-slate-200/50 dark:border-slate-700/30;
+    @apply transition-all duration-300;
+    @apply z-40;
+  }
+
+  .sidebar-collapsed {
+    @apply w-20;
+  }
+
+  .sidebar-expanded {
+    @apply w-64;
+  }
+
+  /* Search Bar */
+  .search-bar {
+    @apply glass-card px-4 py-3;
+    @apply flex items-center gap-3;
+    @apply hover:shadow-glow;
+    @apply transition-all duration-300;
+  }
+
+  /* Checkbox Premium */
+  .checkbox-premium {
+    @apply w-5 h-5 rounded-md;
+    @apply border-2 border-slate-300 dark:border-slate-600;
+    @apply bg-white/50 dark:bg-slate-800/50;
+    @apply backdrop-blur-sm;
+    @apply transition-all duration-200;
+    @apply cursor-pointer;
+  }
+
+  .checkbox-premium:checked {
+    @apply bg-gradient-to-br from-primary-500 to-primary-600;
+    @apply border-primary-500;
+  }
+}
+
+@layer utilities {
+
+  /* Custom Scrollbar */
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-slate-300/50 dark:bg-slate-700/50 rounded-full;
+    @apply backdrop-blur-sm;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-400/70 dark:bg-slate-600/70;
+  }
+
+  /* Hide Scrollbar */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Glassmorphism Utilities */
+  .glass-effect {
+    @apply backdrop-blur-xl bg-white/30 dark:bg-slate-900/30;
+    @apply border border-white/20 dark:border-slate-700/20;
+  }
+
+  .glass-effect-strong {
+    @apply backdrop-blur-2xl bg-white/50 dark:bg-slate-900/50;
+    @apply border border-white/30 dark:border-slate-700/30;
+  }
+
+  /* Gradient Text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-600 to-primary-800;
+    @apply bg-clip-text text-transparent;
+  }
+
+  /* Glow Effect */
+  .glow {
+    @apply shadow-glow;
+  }
+
+  /* Stagger Animation */
+  .stagger-item {
+    animation: slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  }
+
+  .stagger-item:nth-child(1) {
+    animation-delay: 0.05s;
+  }
+
+  .stagger-item:nth-child(2) {
+    animation-delay: 0.1s;
+  }
+
+  .stagger-item:nth-child(3) {
+    animation-delay: 0.15s;
+  }
+
+  .stagger-item:nth-child(4) {
+    animation-delay: 0.2s;
+  }
+
+  .stagger-item:nth-child(5) {
+    animation-delay: 0.25s;
+  }
+
+  .stagger-item:nth-child(6) {
+    animation-delay: 0.3s;
+  }
+
+  /* 🎯 Mobile Tab Bar */
+  .mobile-tab-bar {
+    @apply fixed bottom-0 left-0 right-0 z-50;
+    @apply backdrop-blur-xl bg-white/80 dark:bg-slate-900/80;
+    @apply border-t border-slate-200/50 dark:border-slate-700/30;
+    @apply px-4 py-3;
+    @apply shadow-lg;
+    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+  }
+
+  /* 📱 Mobile Compact Cards */
+  @media (max-width: 768px) {
+    .glass-card {
+      @apply p-4;
+    }
+  }
+
+  /* 🎨 Smooth Mobile Scroll */
+  @media (max-width: 768px) {
+    * {
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+}
+
+/* Global Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.3);
+  border-radius: 99px;
+  backdrop-filter: blur(4px);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.5);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(71, 85, 105, 0.3);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(71, 85, 105, 0.5);
+}
+
+/* Selection */
+::selection {
+  @apply bg-primary-200/50 dark:bg-primary-800/50;
+}
