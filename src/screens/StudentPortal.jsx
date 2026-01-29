@@ -99,7 +99,7 @@ const StudentPortal = () => {
       <Sidebar isCollapsed={isSidebarCollapsed} setIsCollapsed={setIsSidebarCollapsed} />
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto pb-20 md:pb-10 relative">
+      <main className="flex-1 overflow-y-auto pb-32 md:pb-10 relative" style={{ overscrollBehaviorY: 'contain' }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Header */}
           <motion.div

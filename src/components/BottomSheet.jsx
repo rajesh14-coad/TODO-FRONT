@@ -49,7 +49,7 @@ const BottomSheet = ({ isOpen, onClose, title, children }) => {
             dragConstraints={{ top: 0, bottom: 0 }}
             dragElastic={0.2}
             onDragEnd={handleDragEnd}
-            className="fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-slate-900 rounded-t-3xl max-h-[90vh] overflow-hidden shadow-2xl"
+            className="fixed bottom-4 left-4 right-4 z-[60] bg-white dark:bg-slate-900 rounded-3xl max-h-[85vh] overflow-hidden shadow-2xl"
           >
             {/* Drag Handle */}
             <div className="flex justify-center pt-3 pb-2 cursor-grab active:cursor-grabbing">
@@ -69,8 +69,8 @@ const BottomSheet = ({ isOpen, onClose, title, children }) => {
               </button>
             </div>
 
-            {/* Content */}
-            <div className="overflow-y-auto max-h-[calc(90vh-80px)] px-6 py-4">
+            {/* Content area with improved scrolling and safe padding */}
+            <div className="overflow-y-auto max-h-[calc(85vh-120px)] px-6 py-4 pb-12">
               {children}
             </div>
           </motion.div>

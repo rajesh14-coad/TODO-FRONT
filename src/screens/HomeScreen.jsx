@@ -149,7 +149,7 @@ const HomeScreen = () => {
         setIsCollapsed={setIsSidebarCollapsed}
       />
 
-      <main className="flex-1 overflow-y-auto pb-20 md:pb-10">
+      <main className="flex-1 overflow-y-auto pb-32 md:pb-10" style={{ overscrollBehaviorY: 'contain' }}>
         <div className="px-4 sm:px-6 lg:px-8 py-8 max-w-7xl mx-auto">
           {/* Header Section */}
           <div className="flex flex-col md:flex-row items-center justify-center mb-8 gap-4">
@@ -221,7 +221,7 @@ const HomeScreen = () => {
       {/* Floating Action Button */}
       <button
         onClick={() => setIsModalOpen(true)}
-        className="fixed bottom-24 md:bottom-8 right-6 w-14 h-14 bg-primary-600 hover:bg-primary-700 text-white rounded-full shadow-glass-xl flex items-center justify-center transition-all duration-200 hover:scale-110 z-40"
+        className="fixed bottom-32 md:bottom-8 right-6 w-14 h-14 bg-primary-600 hover:bg-primary-700 text-white rounded-full shadow-glass-xl flex items-center justify-center transition-all duration-200 hover:scale-110 z-40"
       >
         <Plus className="w-6 h-6" />
       </button>
