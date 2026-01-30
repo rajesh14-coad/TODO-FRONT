@@ -135,4 +135,94 @@ export const aiService = {
   },
 };
 
+// Student Goals Service
+const getMockGoals = () => {
+  const saved = localStorage.getItem('student_goals');
+  return saved ? JSON.parse(saved) : [];
+};
+
+const saveMockGoals = (goals) => localStorage.setItem('student_goals', JSON.stringify(goals));
+
+export const goalService = {
+  getAll: async () => {
+    try {
+      return await api.get('/goals');
+    } catch (err) {
+      if (err.code === 'ERR_NETWORK' || err.response?.status === 404) {
+        return { data: getMockGoals() };
+      }
+      throw err;
+    }
+  },
+  create: async (goal) => {
+    try {
+      return await api.post('/goals', goal);
+    } catch (err) {
+      if (err.code === 'ERR_NETWORK') {
+        const newGoal = {
+          ...goal,
+          _id: Date.now().toString(),
+          createdAt: new Date().toISOString(),
+          status: 'not_started',
+          timeSpent: 0,
+          sessions: []
+        };
+        const goals = [newGoal, ...getMockGoals()];
+        saveMockGoals(goals);
+        return { data: newGoal };
+      }
+      throw err;
+    }
+  },
+  update: async (id, updates) => {
+    try {
+      return await api.put(`/goals/${id}`, updates);
+    } catch (err) {
+      if (err.code === 'ERR_NETWORK') {
+        const goals = getMockGoals().map(g => g._id === id || g.id === id ? { ...g, ...updates } : g);
+        saveMockGoals(goals);
+        return { data: goals.find(g => g._id === id || g.id === id) };
+      }
+      throw err;
+    }
+  },
+  delete: async (id) => {
+    try {
+      return await api.delete(`/goals/${id}`);
+    } catch (err) {
+      if (err.code === 'ERR_NETWORK') {
+        const goals = getMockGoals().filter(g => g._id !== id && g.id !== id);
+        saveMockGoals(goals);
+        return { data: { success: true } };
+      }
+      throw err;
+    }
+  },
+  addSession: async (id, sessionData) => {
+    try {
+      return await api.post(`/goals/${id}/sessions`, sessionData);
+    } catch (err) {
+      if (err.code === 'ERR_NETWORK') {
+        const goals = getMockGoals().map(g => {
+          if (g._id === id || g.id === id) {
+            const newSession = {
+              date: new Date().toISOString(),
+              duration: sessionData.duration
+            };
+            return {
+              ...g,
+              timeSpent: (g.timeSpent || 0) + sessionData.duration,
+              sessions: [...(g.sessions || []), newSession]
+            };
+          }
+          return g;
+        });
+        saveMockGoals(goals);
+        return { data: goals.find(g => g._id === id || g.id === id) };
+      }
+      throw err;
+    }
+  }
+};
+
 export default api;

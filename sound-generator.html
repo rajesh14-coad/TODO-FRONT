@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sound Generator</title>
+</head>
+<body>
+  <h1>Professional Sound Generator</h1>
+  <button onclick="generateTaskAdded()">Generate Task Added (Ding)</button>
+  <button onclick="generateTaskCompleted()">Generate Task Completed (Chime)</button>
+  <button onclick="generateGoalFinished()">Generate Goal Finished (AI Chime)</button>
+  <button onclick="generateReminder()">Generate Reminder (Pulse)</button>
+  
+  <script>
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    
+    function downloadSound(buffer, filename) {
+      const wav = audioBufferToWav(buffer);
+      const blob = new Blob([wav], { type: 'audio/wav' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      a.click();
+    }
+    
+    function audioBufferToWav(buffer) {
+      const length = buffer.length * buffer.numberOfChannels * 2;
+      const arrayBuffer = new ArrayBuffer(44 + length);
+      const view = new DataView(arrayBuffer);
+      const channels = [];
+      let offset = 0;
+      let pos = 0;
+      
+      // Write WAV header
+      setUint32(0x46464952); // "RIFF"
+      setUint32(36 + length); // file length
+      setUint32(0x45564157); // "WAVE"
+      setUint32(0x20746d66); // "fmt " chunk
+      setUint32(16); // length = 16
+      setUint16(1); // PCM (uncompressed)
+      setUint16(buffer.numberOfChannels);
+      setUint32(buffer.sampleRate);
+      setUint32(buffer.sampleRate * 2 * buffer.numberOfChannels); // avg. bytes/sec
+      setUint16(buffer.numberOfChannels * 2); // block-align
+      setUint16(16); // 16-bit
+      setUint32(0x61746164); // "data" - chunk
+      setUint32(length); // chunk length
+      
+      // Write interleaved data
+      for (let i = 0; i < buffer.numberOfChannels; i++) {
+        channels.push(buffer.getChannelData(i));
+      }
+      
+      while (pos < buffer.length) {
+        for (let i = 0; i < buffer.numberOfChannels; i++) {
+          let sample = Math.max(-1, Math.min(1, channels[i][pos]));
+          sample = sample < 0 ? sample * 0x8000 : sample * 0x7FFF;
+          view.setInt16(44 + offset, sample, true);
+          offset += 2;
+        }
+        pos++;
+      }
+      
+      return arrayBuffer;
+      
+      function setUint16(data) {
+        view.setUint16(pos, data, true);
+        pos += 2;
+      }
+      
+      function setUint32(data) {
+        view.setUint32(pos, data, true);
+        pos += 4;
+      }
+    }
+    
+    // Task Added - Short Ding (0.3s)
+    function generateTaskAdded() {
+      const duration = 0.3;
+      const sampleRate = audioContext.sampleRate;
+      const buffer = audioContext.createBuffer(1, duration * sampleRate, sampleRate);
+      const data = buffer.getChannelData(0);
+      
+      const frequency = 800; // Hz
+      for (let i = 0; i < buffer.length; i++) {
+        const t = i / sampleRate;
+        const envelope = Math.exp(-t * 8); // Fast decay
+        data[i] = Math.sin(2 * Math.PI * frequency * t) * envelope * 0.3;
+      }
+      
+      downloadSound(buffer, 'task-added.wav');
+    }
+    
+    // Task Completed - Celebratory Chime (0.5s)
+    function generateTaskCompleted() {
+      const duration = 0.5;
+      const sampleRate = audioContext.sampleRate;
+      const buffer = audioContext.createBuffer(1, duration * sampleRate, sampleRate);
+      const data = buffer.getChannelData(0);
+      
+      // Rising chime: C5 -> E5 -> G5
+      const notes = [523.25, 659.25, 783.99];
+      const noteDuration = duration / notes.length;
+      
+      for (let i = 0; i < buffer.length; i++) {
+        const t = i / sampleRate;
+        const noteIndex = Math.floor(t / noteDuration);
+        const noteTime = t - noteIndex * noteDuration;
+        const frequency = notes[Math.min(noteIndex, notes.length - 1)];
+        const envelope = Math.exp(-noteTime * 5);
+        data[i] = Math.sin(2 * Math.PI * frequency * noteTime) * envelope * 0.25;
+      }
+      
+      downloadSound(buffer, 'task-completed.wav');
+    }
+    
+    // Goal Finished - Soft AI Chime (0.4s)
+    function generateGoalFinished() {
+      const duration = 0.4;
+      const sampleRate = audioContext.sampleRate;
+      const buffer = audioContext.createBuffer(1, duration * sampleRate, sampleRate);
+      const data = buffer.getChannelData(0);
+      
+      // Gentle bell: A5 + harmonic
+      const frequency = 880;
+      for (let i = 0; i < buffer.length; i++) {
+        const t = i / sampleRate;
+        const envelope = Math.exp(-t * 4);
+        data[i] = (
+          Math.sin(2 * Math.PI * frequency * t) * 0.5 +
+          Math.sin(2 * Math.PI * frequency * 2 * t) * 0.3
+        ) * envelope * 0.2;
+      }
+      
+      downloadSound(buffer, 'goal-finished.wav');
+    }
+    
+    // Reminder - Minimalist Pulse (0.3s)
+    function generateReminder() {
+      const duration = 0.3;
+      const sampleRate = audioContext.sampleRate;
+      const buffer = audioContext.createBuffer(1, duration * sampleRate, sampleRate);
+      const data = buffer.getChannelData(0);
+      
+      // Subtle beep
+      const frequency = 600;
+      for (let i = 0; i < buffer.length; i++) {
+        const t = i / sampleRate;
+        const envelope = Math.exp(-t * 10);
+        data[i] = Math.sin(2 * Math.PI * frequency * t) * envelope * 0.25;
+      }
+      
+      downloadSound(buffer, 'reminder.wav');
+    }
+  </script>
+</body>
+</html>

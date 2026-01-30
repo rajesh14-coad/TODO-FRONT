@@ -1,0 +1,336 @@
+/* Premium Light Mode Overhaul */
+/* Soft Pearl White theme with frosted ice glassmorphism */
+
+@media (prefers-color-scheme: light) {
+
+  /* Base Colors */
+  body {
+    background: #FBFBFE !important;
+    color: #334155 !important;
+  }
+
+  /* Gradient Backgrounds */
+  .bg-gradient-to-br.from-slate-900 {
+    background: linear-gradient(to bottom right, #FBFBFE, #F8FAFC) !important;
+  }
+
+  /* Frosted Ice Glassmorphism */
+  .glass-card,
+  .backdrop-blur-md,
+  .backdrop-blur-xl {
+    background: rgba(255, 255, 255, 0.7) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    border: 1px solid rgba(148, 163, 184, 0.15) !important;
+    box-shadow:
+      0 4px 24px rgba(15, 23, 42, 0.04),
+      0 1px 3px rgba(15, 23, 42, 0.02) !important;
+  }
+
+  /* Enhanced hover shadows */
+  .glass-card:hover {
+    box-shadow:
+      0 12px 48px rgba(15, 23, 42, 0.08),
+      0 4px 12px rgba(15, 23, 42, 0.04) !important;
+  }
+
+  /* Text Colors */
+  /* Text Colors - Removed global overrides to allow specific styling */
+
+  .text-slate-400,
+  .text-slate-300 {
+    color: #64748B !important;
+  }
+
+  .text-slate-500 {
+    color: #94A3B8 !important;
+  }
+
+  .text-slate-600 {
+    color: #64748B !important;
+  }
+
+  /* Icons - Muted Indigo */
+  .text-cyan-400,
+  .text-cyan-500,
+  .text-cyan-300 {
+    color: #6366F1 !important;
+  }
+
+  .text-blue-400,
+  .text-blue-500 {
+    color: #6366F1 !important;
+  }
+
+  /* Background Overrides */
+  .bg-slate-900,
+  .bg-slate-800,
+  .bg-slate-700 {
+    background: #FBFBFE !important;
+  }
+
+  .bg-slate-900\/95,
+  .bg-slate-800\/95,
+  .bg-slate-900\/90,
+  .bg-slate-800\/90 {
+    background: rgba(255, 255, 255, 0.95) !important;
+  }
+
+  .bg-slate-100 {
+    background: #F8FAFC !important;
+  }
+
+  .bg-slate-800 {
+    background: #F8FAFC !important;
+  }
+
+  /* Borders */
+  .border-white\/10,
+  .border-cyan-500\/20,
+  .border-cyan-500\/30,
+  .border-white\/20 {
+    border-color: rgba(148, 163, 184, 0.15) !important;
+  }
+
+  .border-slate-700\/50 {
+    border-color: rgba(148, 163, 184, 0.2) !important;
+  }
+
+  /* Shadows - Soft and large-radius */
+  .shadow-xl,
+  .shadow-2xl {
+    box-shadow:
+      0 10px 40px rgba(15, 23, 42, 0.06),
+      0 2px 8px rgba(15, 23, 42, 0.03) !important;
+  }
+
+  .shadow-lg {
+    box-shadow:
+      0 6px 24px rgba(15, 23, 42, 0.05),
+      0 1px 4px rgba(15, 23, 42, 0.02) !important;
+  }
+
+  .shadow-cyan-500\/30,
+  .shadow-cyan-500\/20,
+  .shadow-cyan-500\/50 {
+    box-shadow:
+      0 4px 16px rgba(99, 102, 241, 0.15),
+      0 1px 4px rgba(99, 102, 241, 0.08) !important;
+  }
+
+  /* Input Fields */
+  input,
+  textarea {
+    background: #F8FAFC !important;
+    color: #334155 !important;
+    border-color: rgba(148, 163, 184, 0.2) !important;
+  }
+
+  input:focus,
+  textarea:focus {
+    border-color: #6366F1 !important;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #94A3B8 !important;
+  }
+
+  /* Buttons */
+  button.glass-card {
+    background: rgba(255, 255, 255, 0.7) !important;
+  }
+
+  button.glass-card:hover {
+    background: rgba(255, 255, 255, 0.85) !important;
+  }
+
+  /* Modal Backdrop */
+  .backdrop-blur-3xl {
+    backdrop-filter: blur(40px) !important;
+    background: rgba(251, 251, 254, 0.8) !important;
+  }
+
+  /* Progress Bars */
+  .bg-slate-700\/50,
+  .bg-slate-800\/50 {
+    background: rgba(148, 163, 184, 0.15) !important;
+  }
+
+  /* Specific Component Overrides */
+
+  /* Goal Cards */
+  .bg-white\/5 {
+    background: rgba(255, 255, 255, 0.7) !important;
+  }
+
+  .bg-white\/10 {
+    background: rgba(255, 255, 255, 0.8) !important;
+  }
+
+  .bg-white\/20 {
+    background: rgba(255, 255, 255, 0.85) !important;
+  }
+
+  /* Hover states */
+  .hover\:bg-white\/10:hover {
+    background: rgba(255, 255, 255, 0.85) !important;
+  }
+
+  .hover\:bg-white\/20:hover {
+    background: rgba(255, 255, 255, 0.9) !important;
+  }
+
+  /* Mesh Gradient Background */
+  /* Mesh Gradient Background override removed - handled by classes */
+
+  /* Ensure readability */
+  /* Ensure readability - Removed aggressive element overrides */
+
+  /* Icons in gradients */
+  .from-green-500\/20,
+  .from-purple-500\/20,
+  .from-cyan-500\/20 {
+    opacity: 0.9;
+  }
+}
+
+/* Dark mode - ensure it stays unchanged */
+@media (prefers-color-scheme: dark) {
+  /* All existing dark mode styles remain */
+}
+  /* Student Portal - Enhanced Text Visibility for Light Mode */
+  
+  /* Goal Card Titles - High Contrast */
+  .text-xl.font-bold.text-slate-900,
+  h3.text-xl.font-bold {
+    color: #0f172a !important; /* slate-900 */
+    font-weight: 700 !important;
+  }
+
+  /* Goal Card Descriptions */
+  .text-slate-600 {
+    color: #475569 !important; /* slate-600 - darker for better contrast */
+    font-weight: 500 !important;
+  }
+
+  /* Progress Labels */
+  .text-slate-400.font-medium {
+    color: #1e293b !important; /* slate-800 */
+    font-weight: 600 !important;
+  }
+
+  /* Progress Values */
+  .font-bold.text-cyan-400 {
+    color: #0891b2 !important; /* cyan-600 for light mode */
+    font-weight: 700 !important;
+  }
+
+  /* Enhanced Backdrop Blur for Goal Cards */
+  .backdrop-blur-md.bg-white\/5 {
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    background: rgba(255, 255, 255, 0.85) !important;
+  }
+
+  /* Section Headings */
+  .text-2xl.font-bold.text-slate-900 {
+    color: #0f172a !important; /* slate-900 */
+    font-weight: 800 !important;
+  }
+
+  /* Main Portal Heading */
+  .text-4xl.font-extrabold.text-slate-900 {
+    color: #0f172a !important; /* slate-900 */
+    font-weight: 900 !important;
+  }
+
+  /* Subtitle text */
+  .text-cyan-600 {
+    color: #0891b2 !important; /* cyan-600 */
+    font-weight: 600 !important;
+  }
+
+  /* Achievement Badge Text */
+  .text-sm.font-bold.text-slate-900 {
+    color: #0f172a !important;
+    font-weight: 700 !important;
+  }
+
+  /* Session Info Text */
+  .text-xs.text-slate-500 {
+    color: #475569 !important; /* slate-600 for better visibility */
+    font-weight: 500 !important;
+  }
+
+
+  /* Edit/Delete Buttons Visibility in Light Mode */
+  .group:hover .opacity-0.group-hover\:opacity-100 {
+    opacity: 1 !important;
+  }
+
+  /* Edit Button */
+  .backdrop-blur-xl.bg-white\/10 {
+    background: rgba(100, 116, 139, 0.15) !important; /* slate with transparency */
+    border: 1px solid rgba(100, 116, 139, 0.2) !important;
+  }
+
+  .backdrop-blur-xl.bg-white\/10:hover {
+    background: rgba(100, 116, 139, 0.25) !important;
+  }
+
+  /* Edit Icon Color */
+  .backdrop-blur-xl.bg-white\/10 .text-white {
+    color: #1e293b !important; /* slate-800 */
+  }
+
+  /* Delete Button */
+  .backdrop-blur-xl.bg-red-500\/20 {
+    background: rgba(239, 68, 68, 0.15) !important;
+    border: 1px solid rgba(239, 68, 68, 0.3) !important;
+  }
+
+  .backdrop-blur-xl.bg-red-500\/20:hover {
+    background: rgba(239, 68, 68, 0.25) !important;
+  }
+
+  /* Delete Icon Color */
+  .backdrop-blur-xl.bg-red-500\/20 .text-red-400 {
+    color: #dc2626 !important; /* red-600 */
+  }
+}
+
+  /* Edit/Delete Buttons Visibility in Light Mode */
+  .group:hover .opacity-0.group-hover\:opacity-100 {
+    opacity: 1 !important;
+  }
+
+  /* Edit Button */
+  .backdrop-blur-xl.bg-white\/10 {
+    background: rgba(100, 116, 139, 0.15) !important; /* slate with transparency */
+    border: 1px solid rgba(100, 116, 139, 0.2) !important;
+  }
+
+  .backdrop-blur-xl.bg-white\/10:hover {
+    background: rgba(100, 116, 139, 0.25) !important;
+  }
+
+  /* Edit Icon Color */
+  .backdrop-blur-xl.bg-white\/10 .text-white {
+    color: #1e293b !important; /* slate-800 */
+  }
+
+  /* Delete Button */
+  .backdrop-blur-xl.bg-red-500\/20 {
+    background: rgba(239, 68, 68, 0.15) !important;
+    border: 1px solid rgba(239, 68, 68, 0.3) !important;
+  }
+
+  .backdrop-blur-xl.bg-red-500\/20:hover {
+    background: rgba(239, 68, 68, 0.25) !important;
+  }
+
+  /* Delete Icon Color */
+  .backdrop-blur-xl.bg-red-500\/20 .text-red-400 {
+    color: #dc2626 !important; /* red-600 */
+  }
+

@@ -128,55 +128,6 @@ const StudentPortal = () => {
     return `${hours}h ${minutes}m`;
   };
 
-  const speak = (text) => {
-    if (!('speechSynthesis' in window) || isVoiceMuted) return;
-
-    const speakNow = () => {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      const voices = window.speechSynthesis.getVoices();
-
-      // Select female voice
-      const femaleVoice = voices.find(v =>
-        (v.name.includes('Google') && v.name.includes('Female')) ||
-        v.name.includes('Samantha') ||
-        v.name.includes('Karen') ||
-        v.name.toLowerCase().includes('female')
-      );
-
-      if (femaleVoice) {
-        utterance.voice = femaleVoice;
-      }
-
-      utterance.rate = 0.9;
-      utterance.pitch = 1;
-      utterance.volume = 1.0;
-
-      // Error handling
-      utterance.onerror = (event) => {
-        console.error('Speech synthesis error:', event);
-      };
-
-      utterance.onend = () => {
-        console.log('Speech finished');
-      };
-
-      window.speechSynthesis.speak(utterance);
-    };
-
-    // Ensure voices are loaded
-    const voices = window.speechSynthesis.getVoices();
-    if (voices.length > 0) {
-      speakNow();
-    } else {
-      // Wait for voices to load
-      window.speechSynthesis.onvoiceschanged = () => {
-        speakNow();
-      };
-      // Fallback: try after a short delay
-      setTimeout(speakNow, 100);
-    }
-  };
 
   const handleStartGoal = (goal) => {
     setActiveGoal(goal);

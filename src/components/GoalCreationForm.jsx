@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Target, Clock, FileText, Sparkles } from 'lucide-react';
+import ProfessionalTimePicker from './ProfessionalTimePicker';
 
-const GoalCreationForm = ({ onSubmit, onCancel }) => {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [totalTime, setTotalTime] = useState('');
+const GoalCreationForm = ({ initialData, onSubmit, onCancel }) => {
+  const [name, setName] = useState(initialData?.name || '');
+  const [description, setDescription] = useState(initialData?.description || '');
+  const [totalTime, setTotalTime] = useState(initialData?.totalTime || 1);
   const [errors, setErrors] = useState({});
 
   const validate = () => {
@@ -33,11 +34,13 @@ const GoalCreationForm = ({ onSubmit, onCancel }) => {
       totalTime: parseFloat(totalTime),
     });
 
-    // Reset form
-    setName('');
-    setDescription('');
-    setTotalTime('');
-    setErrors({});
+    // Reset form only if not editing
+    if (!initialData) {
+      setName('');
+      setDescription('');
+      setTotalTime(1);
+      setErrors({});
+    }
   };
 
   return (
@@ -47,8 +50,8 @@ const GoalCreationForm = ({ onSubmit, onCancel }) => {
         <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-600/20 flex items-center justify-center border border-cyan-500/30">
           <Sparkles className="w-8 h-8 text-cyan-400" />
         </div>
-        <p className="text-slate-500 dark:text-slate-400 text-sm">
-          Set a clear goal and commit to focused study time
+        <p className="text-slate-400 text-center mb-8">
+          अपना Goal चुनें (Choose Your Goal)
         </p>
       </div>
 
@@ -66,8 +69,8 @@ const GoalCreationForm = ({ onSubmit, onCancel }) => {
           onChange={(e) => setName(e.target.value)}
           placeholder="e.g., Study Physics, Learn React, Master Calculus"
           className={`w-full px-4 py-3 rounded-2xl bg-slate-100 dark:bg-slate-800 border-2 ${errors.name
-              ? 'border-red-500'
-              : 'border-transparent focus:border-cyan-500'
+            ? 'border-red-500'
+            : 'border-transparent focus:border-cyan-500'
             } text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none transition-all`}
         />
         {errors.name && (
@@ -96,32 +99,15 @@ const GoalCreationForm = ({ onSubmit, onCancel }) => {
 
       {/* Total Time */}
       <div>
-        <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-3">
-          <div className="flex items-center gap-2">
-            <Clock className="w-4 h-4 text-cyan-500" />
-            Total Time Goal (hours)
-          </div>
-        </label>
-        <input
-          type="number"
-          value={totalTime}
-          onChange={(e) => setTotalTime(e.target.value)}
-          placeholder="e.g., 10, 20, 50"
-          min="0.5"
-          step="0.5"
-          className={`w-full px-4 py-3 rounded-2xl bg-slate-100 dark:bg-slate-800 border-2 ${errors.totalTime
-              ? 'border-red-500'
-              : 'border-transparent focus:border-cyan-500'
-            } text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none transition-all`}
+        <ProfessionalTimePicker
+          value={totalTime || 1}
+          onChange={setTotalTime}
         />
         {errors.totalTime && (
           <p className="text-red-500 text-sm mt-2 flex items-center gap-1">
             <span>⚠️</span> {errors.totalTime}
           </p>
         )}
-        <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 flex items-center gap-1">
-          <span>💡</span> Set a realistic time goal for completing this objective
-        </p>
       </div>
 
       {/* Actions */}
@@ -131,13 +117,13 @@ const GoalCreationForm = ({ onSubmit, onCancel }) => {
           onClick={onCancel}
           className="flex-1 px-6 py-3 rounded-2xl bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold hover:bg-slate-300 dark:hover:bg-slate-600 transition-all"
         >
-          Cancel
+          रद्द करें (Cancel)
         </button>
         <button
           type="submit"
           className="flex-1 px-6 py-3 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50 transition-all"
         >
-          Create Goal
+          {initialData ? 'Update Goal' : 'बनाएं (Create)'}
         </button>
       </div>
     </form>

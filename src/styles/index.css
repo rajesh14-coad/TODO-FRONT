@@ -4,6 +4,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import Light Mode Styles */
+@import './lightMode.css';
+
 @layer base {
   body {
     @apply bg-[#F9FAFB] dark:bg-[#0F1419] text-slate-900 dark:text-slate-100;

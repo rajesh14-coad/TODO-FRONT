@@ -76,8 +76,12 @@ const HomeScreen = () => {
     mutationFn: ({ id, updates }) => taskService.update(id, updates),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] });
-      setIsEditModalOpen(false);
-      setTaskToEdit(null);
+      // Only close modal if editing, not for checkbox toggle
+      if (isEditModalOpen) {
+        setIsEditModalOpen(false);
+        setTaskToEdit(null);
+        toast.success('Task updated successfully');
+      }
     }
   });
 
@@ -90,7 +94,24 @@ const HomeScreen = () => {
   });
 
   const handleToggle = (id, completed) => {
-    updateTaskMutation.mutate({ id, updates: { completed } });
+    // Optimistic update for instant UI feedback
+    queryClient.setQueryData(['tasks'], (oldTasks) =>
+      oldTasks?.map(task =>
+        (task._id === id || task.id === id) ? { ...task, completed } : task
+      ) || []
+    );
+
+    // Then update backend
+    updateTaskMutation.mutate(
+      { id, updates: { completed } },
+      {
+        onError: () => {
+          // Revert on error
+          queryClient.invalidateQueries({ queryKey: ['tasks'] });
+          toast.error('Failed to update task');
+        }
+      }
+    );
   };
 
   const handleEdit = (task) => {

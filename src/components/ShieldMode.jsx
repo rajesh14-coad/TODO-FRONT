@@ -2,45 +2,88 @@ import React, { useState, useEffect, useRef } from 'react';
 import { X, Pause, Play, PhoneOff, Mic } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const ShieldMode = ({ goal, onComplete, onExit }) => {
+const ShieldMode = ({ goal, userName = 'Student', isMuted = false, onComplete, onExit }) => {
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [showExitConfirm, setShowExitConfirm] = useState(false);
+  const [voiceReady, setVoiceReady] = useState(false);
   const intervalRef = useRef(null);
   const hasAnnouncedStart = useRef(false);
   const hasAnnouncedMilestones = useRef(new Set());
 
-  // Voice announcement function
-  const speak = (text) => {
+  // Initialize voices on mount and unlock audio
+  useEffect(() => {
+    if ('speechSynthesis' in window) {
+      // Load voices
+      const loadVoices = () => {
+        const voices = window.speechSynthesis.getVoices();
+        if (voices.length > 0) {
+          setVoiceReady(true);
+        }
+      };
+
+      // Voices might load asynchronously
+      if (window.speechSynthesis.getVoices().length > 0) {
+        loadVoices();
+      } else {
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+      }
+
+      // Unlock audio on first interaction (required by browsers)
+      const unlockAudio = () => {
+        const utterance = new SpeechSynthesisUtterance('');
+        window.speechSynthesis.speak(utterance);
+        window.speechSynthesis.cancel();
+      };
+
+      // Trigger unlock immediately (component mounts on user click)
+      unlockAudio();
+    }
+  }, []);
+
+  // Voice announcement function with Hindi/English support
+  const speak = (text, language = 'hi-IN') => {
+    if (isMuted || !voiceReady) return; // Don't speak if muted or not ready
+
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
 
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.rate = 0.9;
-      utterance.pitch = 1.0;
+      utterance.rate = 0.85;
+      utterance.pitch = 1.1;
       utterance.volume = 1.0;
+      utterance.lang = language;
 
-      const voices = window.speechSynthesis.getVoices();
-      const preferredVoice = voices.find(voice =>
-        voice.name.includes('Samantha') ||
-        voice.name.includes('Karen') ||
-        voice.name.includes('Female')
-      );
-      if (preferredVoice) {
-        utterance.voice = preferredVoice;
+      // Wait for voices to load
+      const setVoice = () => {
+        const voices = window.speechSynthesis.getVoices();
+        const femaleVoice = voices.find(voice =>
+          (voice.lang.includes('hi') || voice.lang.includes('en-IN') || voice.lang.includes('en-US')) &&
+          (voice.name.includes('Female') || voice.name.includes('Samantha') || voice.name.includes('Veena') || voice.name.includes('Karen'))
+        );
+
+        if (femaleVoice) {
+          utterance.voice = femaleVoice;
+        }
+      };
+
+      if (window.speechSynthesis.getVoices().length > 0) {
+        setVoice();
+      } else {
+        window.speechSynthesis.onvoiceschanged = setVoice;
       }
 
       window.speechSynthesis.speak(utterance);
     }
   };
 
-  // Start announcement
+  // Start announcement with Hindi
   useEffect(() => {
     if (!hasAnnouncedStart.current) {
-      speak(`Your goal ${goal.name} has started. Let's be productive!`);
+      speak(`Namaste ${userName}, aapka ${goal.name} shuru ho gaya hai. All the best, focus banaye rakhein!`, 'hi-IN');
       hasAnnouncedStart.current = true;
     }
-  }, [goal.name]);
+  }, [goal.name, userName]);
 
   // Timer logic
   useEffect(() => {
@@ -85,7 +128,7 @@ const ShieldMode = ({ goal, onComplete, onExit }) => {
       timeText = `${minutes} minute${minutes !== 1 ? 's' : ''}`;
     }
 
-    speak(`Great job! You have completed ${timeText} of ${goal.name}. You deserve a rest now.`);
+    speak(`Shabaash ${userName}! Aapne ${goal.name} poora kar liya hai. Ab thoda rest kar lijiye.`, 'hi-IN');
 
     setTimeout(() => {
       onComplete(timeElapsed);

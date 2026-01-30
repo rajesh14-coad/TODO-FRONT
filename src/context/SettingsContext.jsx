@@ -53,27 +53,29 @@ export const SettingsProvider = ({ children }) => {
     soundOptions.completion[0].url
   );
 
-  const playSound = (soundUrl) => {
-    if (soundEnabled && soundUrl) {
-      const audio = new Audio(soundUrl);
-      audio.volume = volume / 100;
-      audio.play().catch(e => console.error('Audio play failed:', e));
-    }
-  };
-
+  // Play notification sound
   const playNotificationSound = () => {
-    playSound(notificationSound);
+    if (!soundEnabled) return;
+
+    // Import and use sound utility
+    import('../utils/soundUtils').then(({ playSound }) => {
+      playSound(notificationSound, volume);
+    }).catch(err => console.error('Notification sound playback failed:', err));
   };
 
   const playCompletionSound = () => {
-    playSound(completionSound);
+    if (!soundEnabled) return;
+
+    import('../utils/soundUtils').then(({ playSound }) => {
+      playSound(completionSound, volume);
+    }).catch(err => console.error('Completion sound playback failed:', err));
   };
 
   const playPreviewSound = (soundUrl) => {
     // Always play preview regardless of soundEnabled setting
-    const audio = new Audio(soundUrl);
-    audio.volume = volume / 100;
-    audio.play().catch(e => console.error('Audio preview failed:', e));
+    import('../utils/soundUtils').then(({ playSound }) => {
+      playSound(soundUrl, volume);
+    }).catch(err => console.error('Preview sound playback failed:', err));
   };
 
   return (
