@@ -580,10 +580,14 @@ const PremiumGoalCard = ({ goal, onStart, onEdit, onDelete }) => {
 
       {/* Progress */}
       <div className="mb-6">
-        <div className="flex items-center justify-between text-sm mb-2">
-          <span className="text-slate-400 font-medium">Progress</span>
-          <span className="font-bold text-cyan-400">
-            {formatDuration(timeSpentHours)} / {formatDuration(goal.totalTime)}
+        <div className="flex items-center justify-between text-sm mb-4">
+          <span className="text-slate-500 dark:text-slate-400 font-semibold">Time</span>
+          <span className="font-bold text-cyan-600 dark:text-cyan-400">
+            {timeSpentHours > 0 ? (
+              `${formatDuration(timeSpentHours)} / ${formatDuration(goal.totalTime)}`
+            ) : (
+              formatDuration(goal.totalTime)
+            )}
           </span>
         </div>
         <div className="h-2 bg-slate-800/50 rounded-full overflow-hidden border border-slate-700/50">

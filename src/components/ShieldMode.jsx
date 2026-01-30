@@ -190,7 +190,7 @@ const ShieldMode = ({ goal, userName = 'Student', isMuted = false, onComplete, o
           repeat: Infinity,
           ease: "linear"
         }}
-        className="absolute inset-0"
+        className="absolute inset-0 pointer-events-none"
       />
 
       {/* Top Controls */}
@@ -211,7 +211,7 @@ const ShieldMode = ({ goal, userName = 'Student', isMuted = false, onComplete, o
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col items-center justify-center h-full px-6">
+      <div className="relative z-10 flex flex-col items-center justify-center h-full px-6">
         {/* Goal Name */}
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
@@ -340,9 +340,11 @@ const ShieldMode = ({ goal, userName = 'Student', isMuted = false, onComplete, o
         <motion.button
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           transition={{ delay: 1 }}
           onClick={handleComplete}
-          className="px-8 py-4 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold text-lg shadow-2xl shadow-green-500/30 hover:shadow-green-500/50 transition-all"
+          className="px-8 py-4 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold text-lg shadow-2xl shadow-green-500/30 hover:shadow-green-500/50 transition-all cursor-pointer relative z-20"
         >
           Complete Session
         </motion.button>
