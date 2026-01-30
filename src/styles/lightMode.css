@@ -193,12 +193,7 @@
   .from-cyan-500\/20 {
     opacity: 0.9;
   }
-}
 
-/* Dark mode - ensure it stays unchanged */
-@media (prefers-color-scheme: dark) {
-  /* All existing dark mode styles remain */
-}
   /* Student Portal - Enhanced Text Visibility for Light Mode */
   
   /* Goal Card Titles - High Contrast */

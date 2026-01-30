@@ -297,40 +297,9 @@
   .backdrop-blur-xl.bg-red-500\/20 .text-red-400 {
     color: #dc2626 !important; /* red-600 */
   }
+
+
+/* Dark mode - ensure it stays unchanged */
+@media (prefers-color-scheme: dark) {
+  /* All existing dark mode styles remain */
 }
-
-  /* Edit/Delete Buttons Visibility in Light Mode */
-  .group:hover .opacity-0.group-hover\:opacity-100 {
-    opacity: 1 !important;
-  }
-
-  /* Edit Button */
-  .backdrop-blur-xl.bg-white\/10 {
-    background: rgba(100, 116, 139, 0.15) !important; /* slate with transparency */
-    border: 1px solid rgba(100, 116, 139, 0.2) !important;
-  }
-
-  .backdrop-blur-xl.bg-white\/10:hover {
-    background: rgba(100, 116, 139, 0.25) !important;
-  }
-
-  /* Edit Icon Color */
-  .backdrop-blur-xl.bg-white\/10 .text-white {
-    color: #1e293b !important; /* slate-800 */
-  }
-
-  /* Delete Button */
-  .backdrop-blur-xl.bg-red-500\/20 {
-    background: rgba(239, 68, 68, 0.15) !important;
-    border: 1px solid rgba(239, 68, 68, 0.3) !important;
-  }
-
-  .backdrop-blur-xl.bg-red-500\/20:hover {
-    background: rgba(239, 68, 68, 0.25) !important;
-  }
-
-  /* Delete Icon Color */
-  .backdrop-blur-xl.bg-red-500\/20 .text-red-400 {
-    color: #dc2626 !important; /* red-600 */
-  }
-
